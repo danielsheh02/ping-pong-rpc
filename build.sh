@@ -7,13 +7,13 @@ fi
 
 set -x
 
-HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
-
 # Установка cmake
 sudo apt install -y cmake
 
 # Установка пакетов, которые необходимы для сборки grpc
 sudo apt install -y build-essential autoconf libtool pkg-config
+
+HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
 
 # Клонирование репозитория с заданными параметрами в домашнюю директорию
 git clone --recurse-submodules -b v1.59.2 --depth 1 --shallow-submodules https://github.com/grpc/grpc $HOME/grpc
