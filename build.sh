@@ -1,10 +1,13 @@
 #!/bin/bash
-
 # Проверка прав доступа для sudo
 if [ "$EUID" -ne 0 ]
   then echo "Этот скрипт требует прав администратора."
   exit
 fi
+
+set -x
+
+HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
 
 # Установка cmake
 sudo apt install -y cmake
@@ -12,8 +15,8 @@ sudo apt install -y cmake
 # Установка пакетов, которые необходимы для сборки grpc
 sudo apt install -y build-essential autoconf libtool pkg-config
 
-# Клонирование репозитория с заданными параметрами
-git clone --recurse-submodules -b v1.59.2 --depth 1 --shallow-submodules https://github.com/grpc/grpc .
+# Клонирование репозитория с заданными параметрами в домашнюю директорию
+git clone --recurse-submodules -b v1.59.2 --depth 1 --shallow-submodules https://github.com/grpc/grpc $HOME/grpc
 
 # Установка переменной окружения MY_INSTALL_DIR
 export MY_INSTALL_DIR=$HOME/.local
@@ -25,10 +28,10 @@ mkdir -p $MY_INSTALL_DIR
 export PATH="$MY_INSTALL_DIR/bin:$PATH"
 
 # Создание директории для сборки gRPC
-mkdir -p /cmake/build
+ mkdir -p $HOME/grpc/cmake/build
 
 # Переход в директорию для сборки
-pushd /cmake/build
+ pushd $HOME/grpc/cmake/build
 
 # Настройка сборки с помощью CMake
 cmake -DgRPC_INSTALL=ON \
