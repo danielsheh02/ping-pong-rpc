@@ -13,13 +13,13 @@ sudo apt install -y cmake
 # Установка пакетов, которые необходимы для сборки grpc
 sudo apt install -y build-essential autoconf libtool pkg-config
 
-HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
+HOME_DIR=$(getent passwd "$SUDO_USER" | cut -d: -f6)
 
 # Клонирование репозитория с заданными параметрами в домашнюю директорию
-git clone --recurse-submodules -b v1.59.2 --depth 1 --shallow-submodules https://github.com/grpc/grpc $HOME/grpc
+git clone --recurse-submodules -b v1.59.2 --depth 1 --shallow-submodules https://github.com/grpc/grpc $HOME_DIR/grpc
 
 # Установка переменной окружения MY_INSTALL_DIR
-export MY_INSTALL_DIR=$HOME/.local
+export MY_INSTALL_DIR=$HOME_DIR/.local
 
 # Создание директории для установки
 mkdir -p $MY_INSTALL_DIR
@@ -28,10 +28,10 @@ mkdir -p $MY_INSTALL_DIR
 export PATH="$MY_INSTALL_DIR/bin:$PATH"
 
 # Создание директории для сборки gRPC
- mkdir -p $HOME/grpc/cmake/build
+ mkdir -p $HOME_DIR/grpc/cmake/build
 
 # Переход в директорию для сборки
- pushd $HOME/grpc/cmake/build
+ pushd $HOME_DIR/grpc/cmake/build
 
 # Настройка сборки с помощью CMake
 cmake -DgRPC_INSTALL=ON \
