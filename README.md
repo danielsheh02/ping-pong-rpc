@@ -1,12 +1,14 @@
 ### Ping-pong RPC.
-The application is implemented using Protobuf and gRPC libraries in C++ programming language. To run, you need to install these libraries. It is recommended to build from [source code](https://github.com/grpc/grpc/tree/master/src/cpp), following [these steps](https://grpc.io/docs/languages/cpp/quickstart).
+The application is implemented using Protobuf and gRPC libraries in C++ programming language. To run, you need to install these libraries. All the necessary instructions are written in the sh file, it must be run from the superuser.
 
-#### Build:
+#### Build necessary libraries and binary files for ping-pong application:
 ```
-mkdir build
-cd build/
-cmake ..
-make
+sudo ./build.sh
+```
+
+#### Run:
+```
+cd build
 ```
 
 #### Run server:
