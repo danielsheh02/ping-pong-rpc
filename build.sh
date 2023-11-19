@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Проверка прав доступа для sudo
+if [ "$EUID" -ne 0 ]
+  then echo "Этот скрипт требует прав администратора."
+  exit
+fi
+
 # Установка cmake
 sudo apt install -y cmake
 
